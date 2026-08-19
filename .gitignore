@@ -1,2 +1,9 @@
+# Dossier de travail local : fichiers sources téléchargés, documents
+# administratifs, courriers de demande d'accès.
+# Ces fichiers appartiennent à leurs producteurs et ne sont pas redistribués
+# par ce dépôt. Voir donnees-locales/LISEZMOI.md et LICENSE.md.
+donnees-locales/
+
 .DS_Store
 *.zip
+*.tar.gz
