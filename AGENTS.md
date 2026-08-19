@@ -2,7 +2,7 @@
 
 **Statut :** Brouillon
 **Responsable :** Cinthia Coelho
-**Dernière vérification :** 2026-08-18
+**Dernière vérification :** 2026-08-19
 **S'applique à :** tout agent automatisé travaillant sur ce dépôt
 
 Ce document est lu par les agents avant toute contribution. Il définit qui fait quoi,
@@ -34,9 +34,13 @@ contribution défectueuse, même si le code fonctionne.
 |---|---|---|
 | Rôle type | Claude | Codex |
 | Question à laquelle il répond | *Est-ce vrai du monde réel ?* | *Est-ce que ça fonctionne ?* |
-| Domaine | Sources publiques, vérification, méthodologie, latences, ruptures, compétences, droit d'accès, documentation, revue méthodologique | Contrats exécutables, schémas, pipeline, tests, interface, refactorisation, revue technique |
-| Produit | Documents, inventaires, briefs d'issue, avis de revue | Code, contrats, tests, pull requests |
+| Domaine | Sources publiques, vérification, méthodologie, latences, ruptures, compétences, droit d'accès, documentation, revue méthodologique | Schémas, base de données, collecteurs, tests, interface, refactorisation, revue technique |
+| Produit | Documents, inventaires, briefs d'issue, avis de revue | Code, migrations, tests, pull requests |
 | Accès au monde extérieur | Oui — consultation des sources publiques | Non supposé |
+
+**Conséquence à respecter :** une tâche qui exige d'aller **lire une page publique sur
+internet** relève de l'agent de recherche, même si elle ressemble à une tâche technique.
+Télécharger un fichier pour en vérifier le contenu n'est pas de l'implémentation.
 
 **Zone commune :** le modèle de données. Ni l'un ni l'autre ne le modifie seul. Une
 évolution du modèle se propose par un document, se discute en issue, et s'implémente
@@ -74,7 +78,8 @@ qu'après coup. Toute issue transmise contient :
 3. ce qui est **vérifié** et ce qui reste **hypothèse** ;
 4. les critères d'acceptation, vérifiables ;
 5. ce qui est explicitement **hors périmètre** de l'issue ;
-6. les invariants applicables (section 4).
+6. les invariants applicables (section 4) ;
+7. **l'agent à qui elle s'adresse**, et pourquoi.
 
 ### Ce que doit contenir une pull request
 
@@ -99,19 +104,22 @@ quelque chose. Une demande qui les viole se refuse et s'escalade.
    présomption. Voir [17](docs/17_REGISTRE_DES_LACUNES.md).
 5. **Une capture n'écrase jamais la précédente.** Ajout seul, empreinte de contenu,
    horodatage de capture. Voir [14](docs/14_VOLATILITE_DES_SOURCES.md).
-6. **Ce dépôt documente l'action publique.** Il ne fait pas campagne, ne classe pas les
-   élus, ne prescrit pas de choix politique, et ne présente aucune corrélation comme une
-   causalité.
+6. **Cet observatoire documente l'action publique.** Il ne fait pas campagne, ne classe pas
+   les élus, ne prescrit pas de choix politique, et ne présente aucune corrélation comme
+   une causalité.
 7. **Documenter une source n'autorise pas à la collecter.** L'acquisition relève d'une
-   décision distincte.
+   décision distincte, encadrée par les garde-fous du document 14.
+8. **Aucun constat de non-conformité d'une administration** n'est publié avant qu'une
+   demande soit restée sans réponse ou ait été refusée. Avant cela, on écrit ce qu'on a
+   cherché et ce qu'on n'a pas trouvé. Voir [17](docs/17_REGISTRE_DES_LACUNES.md).
 
 ---
 
 ## 5. Ce que chaque agent ne fait pas
 
-**L'agent de recherche** n'écrit pas de code de production, ne modifie pas de contrat
-exécutable, et ne décide pas d'architecture technique seul. Il propose ; il ne tranche pas
-à la place de l'agent d'implémentation.
+**L'agent de recherche** n'écrit pas de code de production, ne modifie pas de schéma de
+base de données, et ne décide pas d'architecture technique seul. Il propose ; il ne tranche
+pas à la place de l'agent d'implémentation.
 
 **L'agent d'implémentation** n'invente pas de source, ne comble pas une lacune de données
 par une valeur plausible, ne modifie pas une règle méthodologique pour faire passer un
@@ -125,24 +133,19 @@ dépôt.
 
 ## 6. Désaccord
 
-Si deux artefacts acceptés se contredisent, ou si un agent estime qu'une instruction viole
-un invariant : **arrêter, écrire le désaccord dans une issue, escalader.** Ne jamais
-trancher silencieusement, ne jamais choisir l'interprétation la plus commode.
-
-Deux conflits connus sont déjà enregistrés et ne doivent pas être « résolus » par un agent :
-
-- la comparaison inter-territoriale, exclue du périmètre accepté de la plateforme —
-  voir [16](docs/16_TERRITOIRES_DE_COMPARAISON.md) ;
-- la capture périodique de sources volatiles, interdite pour l'incrément courant —
-  voir [14](docs/14_VOLATILITE_DES_SOURCES.md).
+Si deux documents se contredisent, ou si un agent estime qu'une instruction viole un
+invariant : **arrêter, écrire le désaccord dans une issue, escalader.** Ne jamais trancher
+silencieusement, ne jamais choisir l'interprétation la plus commode.
 
 ---
 
 ## 7. Conventions d'écriture
 
-- **Langue :** français pour tout ce dépôt. Les remontées vers `project-iagora` se
-  rédigent en anglais, selon les conventions de ce dépôt-là. Voir
-  [`upstream/`](upstream/README.md).
+- **Langue :** français.
+- **Langue accessible.** Les documents de `docs/` sont techniques par nécessité. **Tout ce
+  qui est destiné à être lu par le public doit être traduit** : aucune notion technique ne
+  paraît dans une interface sans son équivalent en langue ordinaire, placé en premier. Voir
+  [18](docs/18_CHANTIERS.md), chantier 6.
 - **En-tête de document :** `Statut`, `Responsable`, `Dernière vérification`, et
   `Date d'observation` lorsque le document dépend d'un relevé.
 - **Sections de fin :** `État actuel` — déclaration honnête de ce qui est établi et de ce
@@ -170,15 +173,12 @@ Une fusion n'est ni une publication, ni une validation méthodologique.
 
 ---
 
-## 9. Relation avec `project-iagora`
+## 9. Antécédent
 
-Ce dépôt est **territorial** : Clermont-Ferrand, en français.
-[`project-iagora`](https://github.com/ccoelhofize/project-iagora) est la **plateforme** :
-générique, en anglais, gouvernée par des décisions d'architecture formelles, avec son
-propre contrat d'agents.
+Ce projet s'inspire d'un travail antérieur, aujourd'hui archivé et non public. Ce dépôt
+**n'en est pas la suite** et n'est lié par aucune de ses décisions. Ce qui en est retenu et
+ce qui en est écarté est exposé en [00_PERIMETRE](docs/00_PERIMETRE.md).
 
-Un agent qui travaille ici et remarque qu'un constat est générique — donc valable pour
-n'importe quelle collectivité — l'inscrit dans [`upstream/`](upstream/README.md) au lieu
-de l'implémenter ici. La frontière exacte est en [00](docs/00_PERIMETRE.md).
-
-**Un agent ne contribue jamais aux deux dépôts dans le même changement.**
+La leçon opérationnelle à garder : **la complexité de la gouvernance doit rester
+proportionnée à ce qui est effectivement publié.** Un agent qui propose une procédure
+nouvelle doit dire quel problème réel, déjà survenu, elle empêche.

@@ -2,7 +2,7 @@
 
 **Statut :** Brouillon
 **Responsable :** Cinthia Coelho
-**Dernière vérification :** 2026-08-18
+**Dernière vérification :** 2026-08-19
 **Date d'observation :** 2026-08-18
 
 ## Objet
@@ -42,7 +42,7 @@ contre quelqu'un.
 
 ## Sources prioritaires à préserver
 
-Par ordre d'urgence décroissante. Cadence indicative de capture entre parenthèses.
+Par ordre d'urgence décroissante.
 
 ### Perte quotidienne en cours
 
@@ -82,52 +82,42 @@ catalogue serait du gaspillage : la liste des cimetières ne change pas.
    portails réécrivent leurs horodatages lors des réindexations ; sans empreinte, le
    journal est saturé de faux changements.
 3. **Horodatage de capture** distinct de la date de publication déclarée par la source.
-4. **Séparer préserver et admettre.** Capturer pour ne pas perdre n'est pas publier, ni
-   canoniser, ni admettre comme preuve. Cette distinction est la clé de toute la section
-   suivante.
+4. **Séparer préserver et publier.** Capturer pour ne pas perdre n'est ni publier, ni
+   valider, ni tenir pour vrai. Une copie datée est une pièce d'archive ; elle ne devient
+   une donnée de l'observatoire qu'après vérification humaine.
 
-## Articulation avec la gouvernance d'acquisition de `project-iagora`
+## Garde-fous
 
-`project-iagora` a délibérément conçu une acquisition **lente et validée par un humain** :
-paquet de revue de 14 jours, rappel au dixième jour, décision humaine explicite, puis
-branche et pull request. Une capture périodique s'y heurte sur trois points réels :
+Une capture automatique répétée pendant six ans peut déraper de deux façons : en devenant
+une charge pour les serveurs publics, ou en accumulant une masse que personne ne relit.
+Les règles suivantes s'appliquent à toute collecte.
 
-1. RFC-0001 interdit explicitement, pour l'incrément courant, toute collecte
-   « continue ou planifiée », et exige une décision ultérieure ;
-2. le goulot est humain : un flux périodique de dizaines d'instantanés produirait plus de
-   candidats qu'un relecteur unique ne peut en traiter avant expiration — ce qui
-   provoquerait exactement la perte que la capture visait à éviter ;
-3. le stockage temporaire actuel (14 jours) est plus court que le besoin de rétention.
-
-Mais il ne s'agit pas d'une opposition de principe, pour quatre raisons :
-
-- l'architecture **sépare déjà** acquisition et admission ;
-- un travail planifié existe déjà et est explicitement autorisé (le moniteur d'échéance,
-  en métadonnées seules) : le précédent de la planification est acquis, il manque
-  l'autorisation de planifier un contact avec la source ;
-- le point de décision sur le stockage externe liste déjà, parmi ses déclencheurs, le cas
-  où « la rétention temporaire est plus courte que le besoin de conservation accepté » ;
-- RFC-0001 laisse ouverte la question de savoir quelle preuve opérationnelle déclencherait
-  une proposition de planification. **Le constat des 70 % est littéralement la réponse à
-  cette question.**
-
-Conception qui conviendrait : **préservation planifiée → quarantaine**, avec admission
-différée et groupée, rétention allongée pour le matériel capturé mais non revu, et une
-distinction nouvelle entre « capturé pour ne pas être perdu » et « admis comme preuve ».
-Cette distinction n'existe pas aujourd'hui : dans le modèle actuel, ce qui n'est pas admis
-meurt.
-
-C'est cette pièce de conception qui a besoin d'une décision — pas la planification en
-elle-même.
+1. **Cadence proportionnée à la source.** On ne capture pas plus souvent que la source ne
+   change. Collecter chaque jour un jeu publié une fois par an n'apporte rien et coûte à
+   tout le monde.
+2. **Respect des conditions d'utilisation** du portail, et des règles d'accès
+   automatisé qu'il publie. En cas de doute, on demande, on ne suppose pas.
+3. **Identification.** Le collecteur s'annonce, avec un moyen de contact. Un observatoire
+   citoyen n'a aucune raison de collecter anonymement.
+4. **Limitation de débit et reprise douce.** Une erreur du serveur entraîne une attente
+   croissante, jamais une nouvelle tentative immédiate.
+5. **Aucune donnée personnelle.** Si une source en contient, elle n'entre pas dans
+   l'archive en l'état ; la question est traitée avant la première capture, pas après.
+6. **Le volume est surveillé.** Une estimation de la taille de l'archive à six ans est
+   faite avant de choisir un support de stockage.
+7. **Rien n'est publié automatiquement depuis l'archive.** La chaîne s'arrête à la copie
+   datée ; le passage à la publication est une décision humaine.
 
 ## Ce qui reste à établir
 
-- Rédiger la proposition de préservation de sources volatiles pour `project-iagora`
-  (voir [`upstream/`](../upstream/README.md)).
 - Fixer les cadences définitives par source.
-- Estimer le volume de stockage sur six ans avant de choisir un support.
-- Décider du sort des captures jamais revues : conservation indéfinie, ou purge après une
-  admission groupée.
+- Estimer le volume de l'archive à six ans, puis choisir le support. Un dépôt versionné
+  convient bien aux fichiers texte de petite taille ; il convient mal aux fichiers
+  volumineux ou binaires.
+- Lire les conditions d'utilisation des deux portails locaux et, si elles sont ambiguës,
+  écrire au contact open data avant la première capture.
+- Décider du sort des captures jamais relues : conservation indéfinie, ou purge après
+  vérification groupée.
 
 ## État actuel
 
@@ -139,4 +129,4 @@ confirmation. **Aucune capture n'est aujourd'hui en place.**
 
 - [10_INVENTAIRE_DES_SOURCES](10_INVENTAIRE_DES_SOURCES.md)
 - [11_LATENCE_ET_DEUX_HORLOGES](11_LATENCE_ET_DEUX_HORLOGES.md)
-- [upstream/README](../upstream/README.md)
+- [18_CHANTIERS](18_CHANTIERS.md)
