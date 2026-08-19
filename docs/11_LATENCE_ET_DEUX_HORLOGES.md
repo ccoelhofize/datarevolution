@@ -76,7 +76,7 @@ Le mandat commence en mars 2026. Le premier **exercice civil complet** du mandat
 | Délinquance enregistrée | juillet 2028 | juillet 2027 |
 | Comptes exécutés | septembre-décembre 2028 | septembre-décembre 2027 |
 | Accidents, effectifs scolaires | fin 2028 | fin 2027 |
-| Police municipale | ~فévrier 2029 | ~février 2028 |
+| Police municipale | ~février 2029 | ~février 2028 |
 | Recensement, revenus, pauvreté | ~2030 | ~2029 |
 
 > **Aucune évaluation statistique du mandat 2026-2032 n'est possible avant mi-2028.**
