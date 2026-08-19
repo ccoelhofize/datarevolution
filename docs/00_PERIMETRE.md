@@ -2,17 +2,16 @@
 
 **Statut :** Brouillon
 **Responsable :** Cinthia Coelho
-**Dernière vérification :** 2026-08-18
+**Dernière vérification :** 2026-08-19
 **Date d'observation :** 2026-08-18
 
 ## Objet
 
-Définir ce que ce dépôt couvre, ce qu'il exclut, et où passe la frontière avec le dépôt
-`project-iagora`. Sans cette frontière écrite, les deux dépôts divergent en quelques mois.
+Définir ce que ce projet couvre et ce qu'il exclut.
 
 ## Périmètre territorial
 
-| Entité | Code | Rôle dans l'observatoire |
+| Entité | Code | Rôle |
 |---|---|---|
 | Clermont-Ferrand | INSEE 63113 | Territoire principal |
 | Clermont Auvergne Métropole | EPCI, 21 communes | **Indispensable** — exerce une large part des compétences |
@@ -41,14 +40,30 @@ dans [l'inventaire](10_INVENTAIRE_DES_SOURCES.md). Les cas les plus contraignant
 délinquance enregistrée (2016), couverture petite enfance (2017), logements vacants
 LOVAC (2020), valeur ajoutée des collèges (2022).
 
+## Périmètre éditorial
+
+Le produit visé est **une vitrine de l'état de santé de la ville**, compréhensible sans
+formation particulière. Le suivi des engagements de campagne en est une couche, pas le
+cœur.
+
+Conséquence opérationnelle : le document administratif — délibération, arrêté, marché —
+est la **pièce justificative** d'une affirmation, jamais le contenu proposé au lecteur. Un
+observatoire qui finit en catalogue d'actes administratifs a manqué sa cible, même si
+chaque acte est correctement référencé.
+
+Conséquence de vocabulaire : les documents de ce dépôt sont techniques par nécessité ; le
+site ne peut pas l'être. Toute notion d'ici qui apparaît dans l'interface doit avoir été
+traduite. Voir [18_CHANTIERS](18_CHANTIERS.md), chantier 6.
+
 ## Ce que ce dépôt contient
 
-- l'inventaire des sources publiques mobilisables pour le territoire ;
-- les propriétés méthodologiques de ces sources : latence, granularité, profondeur,
-  ruptures, volatilité, droits ;
+- l'inventaire des sources publiques mobilisables ;
+- leurs propriétés méthodologiques : latence, granularité, profondeur, ruptures,
+  volatilité, droits ;
 - l'attribution des compétences institutionnelles par domaine ;
 - la méthodologie de comparaison territoriale ;
-- le registre des lacunes et des demandes d'accès.
+- le registre des lacunes et des demandes d'accès ;
+- le contrat de travail des agents automatisés.
 
 ## Ce que ce dépôt ne contient pas
 
@@ -58,62 +73,39 @@ LOVAC (2020), valeur ajoutée des collèges (2022).
 - **aucune autorisation d'acquisition** : documenter une source n'est pas décider de la
   collecter.
 
-## Frontière avec `project-iagora`
+## Antécédent : le projet IAgora
 
-[`project-iagora`](https://github.com/ccoelhofize/project-iagora) est une **plateforme de
-connaissance vérifiable**, conçue pour être réutilisable par d'autres collectivités, dont
-la documentation est en anglais et dont le premier pilote porte sur Clermont-Ferrand.
+Ce projet s'inspire d'un travail antérieur, `project-iagora`, aujourd'hui **archivé et
+non public**. Ce dépôt **n'en est pas la suite** : il ne dépend d'aucune de ses décisions
+et n'est lié par aucune d'elles.
 
-La règle de partage est celle de la **généricité** :
+Ce qui en est retenu, parce que c'était juste :
 
-| Nature | Dépôt | Exemple |
-|---|---|---|
-| Concept réutilisable par n'importe quelle collectivité | `project-iagora` | La notion de « rupture de série » comme enregistrement canonique |
-| Fait territorial propre à Clermont-Ferrand | **ce dépôt** | Le fait que la rupture de 2018 est la création de Clermont Auvergne Métropole |
-| Vocabulaire normatif du modèle de données | `project-iagora` | L'énumération des sphères de compétence |
-| Attribution concrète d'un domaine à une sphère | **ce dépôt** | La culture relève de la Métropole à Clermont-Ferrand |
-| Contrats exécutables, schémas, pipeline, interface | `project-iagora` | `contracts/v1/` |
-| Inventaire analytique des sources d'un territoire | **ce dépôt** | Les 61 indicateurs |
+- la source de vérité et la source de preuve sont deux choses distinctes ;
+- la donnée brute est immuable : une correction crée un nouvel enregistrement, elle
+  n'écrase pas le précédent ;
+- l'incertitude reste visible : manquant, contesté, estimé et périmé se distinguent ;
+- les méthodes sont reproductibles et versionnées ;
+- neutralité méthodologique : documenter l'action publique, sans classer les élus.
 
-### Risque assumé et son traitement
+Ce qui en est écarté, parce que c'était le problème :
 
-Cette séparation crée un **risque de dérive conceptuelle** : plusieurs constats de ce
-dépôt ne sont pas territoriaux mais structurels — latence de publication, rupture de
-série, sphère de compétence, volatilité des sources, registre de lacunes. Ils décrivent
-des propriétés que toute collectivité française présente. S'ils restent ici, le modèle de
-données de `project-iagora` reste aveugle à ces propriétés.
+- le centre de gravité avait glissé vers le suivi d'engagements, au détriment de la vue
+  d'ensemble sur la ville ;
+- le vocabulaire était inaccessible à la plupart des lecteurs ;
+- l'appareil de gouvernance était devenu plus lourd que ce qu'il gouvernait.
 
-Traitement : le répertoire [`upstream/`](../upstream/README.md) tient la liste des
-concepts candidats à une remontée vers `project-iagora`, avec le type d'artefact visé
-(ADR, RFC, mise à jour de spécification) et l'état de la proposition. Ce dépôt est écrit
-en français ; toute remontée devra être rédigée en anglais, conformément aux conventions
-de `project-iagora`.
-
-### Points de friction identifiés avec les décisions déjà acceptées
-
-Deux constats de ce dépôt entrent en tension avec des décisions **déjà acceptées** dans
-`project-iagora`. Ils sont signalés ici pour ne pas être découverts trop tard :
-
-1. **Comparaison inter-territoriale.** ADR-0001 et le périmètre produit excluent
-   explicitement la « comparaison avec d'autres villes ». La méthodologie du panel gelé
-   est donc documentée ici comme travail futur, sans être proposée en amont tant qu'une
-   révision de périmètre n'a pas été décidée. Voir [16](16_TERRITOIRES_DE_COMPARAISON.md).
-2. **Capture périodique de sources volatiles.** RFC-0001 interdit, pour l'incrément
-   courant, toute « collecte de source continue ou planifiée », et exige une décision
-   ultérieure. Le constat de perte irréversible documenté en
-   [14](14_VOLATILITE_DES_SOURCES.md) répond précisément à l'une des questions laissées
-   ouvertes par ce RFC ; il ne le contredit pas, mais il ne peut pas être mis en œuvre
-   sans cette décision.
+Ce dépôt garde les principes et abandonne l'appareil. La complexité doit rester
+proportionnée à ce qui est effectivement publié.
 
 ## État actuel
 
-Document de cadrage, en brouillon. Le périmètre territorial et temporel est stable ; la
-frontière entre les deux dépôts est une proposition qui n'a pas encore été validée côté
-`project-iagora`.
+Document de cadrage, en brouillon. Le périmètre territorial, temporel et éditorial est
+stable.
 
 ## Documents liés
 
 - [10_INVENTAIRE_DES_SOURCES](10_INVENTAIRE_DES_SOURCES.md)
 - [13_SPHERES_DE_COMPETENCE](13_SPHERES_DE_COMPETENCE.md)
 - [16_TERRITOIRES_DE_COMPARAISON](16_TERRITOIRES_DE_COMPARAISON.md)
-- [upstream/README](../upstream/README.md)
+- [18_CHANTIERS](18_CHANTIERS.md)

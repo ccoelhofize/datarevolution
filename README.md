@@ -1,91 +1,124 @@
-# Observatoire de Clermont-Ferrand — base de connaissance territoriale
+# Observatoire de Clermont-Ferrand
 
-**Statut :** Brouillon
+**Statut :** Espace de travail public, en construction
 **Responsable :** Cinthia Coelho
-**Dernière vérification :** 2026-08-18
-**Langue de travail :** français
+**Dernière vérification :** 2026-08-19
 
-Ce dépôt documente **les sources de données publiques du territoire clermontois** et la
-méthodologie permettant de les lire sans les faire mentir. Il ne contient ni site web, ni
-pipeline, ni données acquises : il contient la connaissance nécessaire pour que ces
-choses-là soient construites correctement.
+Comment va Clermont-Ferrand ? Qui décide quoi ? Qu'est-ce qui a été promis, voté,
+financé, fait ?
 
-Il accompagne le mandat municipal **2026-2032** et couvre le territoire de
-**Clermont-Ferrand** (INSEE 63113) **et de Clermont Auvergne Métropole**.
+Ce dépôt contient le travail préparatoire d'un observatoire citoyen : **quelles données
+publiques existent sur le territoire clermontois, ce qu'elles disent vraiment, et à quelles
+conditions on peut les lire sans les faire mentir.**
 
-## Pourquoi ce dépôt existe
+Il accompagne le mandat municipal **2026-2032** et couvre **Clermont-Ferrand**
+(INSEE 63113) **et Clermont Auvergne Métropole** — parce qu'une large part de ce qui
+concerne la ville se décide à l'échelle métropolitaine.
 
-Un observatoire citoyen échoue rarement par manque de données. Il échoue parce qu'il
-compare des séries incomparables, parce qu'il impute à un maire des compétences qu'il
-n'exerce pas, parce qu'il présente comme actuel un chiffre vieux de trois ans, ou parce
-qu'il n'a pas conservé ce que les portails publics effacent.
+## Ce que l'observatoire veut être
 
-Ce dépôt existe pour empêcher ces quatre erreurs. Il répond à quatre questions, source par
-source :
+**Une vitrine de l'état de santé de la ville**, lisible par tout le monde, où le suivi des
+engagements de campagne est une couche parmi d'autres — pas le sujet principal.
 
-1. **Quand ?** — quel délai sépare le fait de sa publication, et donc à partir de quelle
-   date une évaluation est seulement possible ([11](docs/11_LATENCE_ET_DEUX_HORLOGES.md)).
-2. **Qui décide ?** — quelle sphère institutionnelle exerce réellement la compétence
-   mesurée ([13](docs/13_SPHERES_DE_COMPETENCE.md)).
-3. **Est-ce comparable ?** — quelles ruptures méthodologiques interdisent de tracer une
-   courbe continue ([12](docs/12_RUPTURES_DE_SERIE.md)).
-4. **Que perd-on chaque jour ?** — quelles sources écrasent leur propre historique
-   ([14](docs/14_VOLATILITE_DES_SOURCES.md)).
+Ce que l'observatoire ne veut pas devenir : un entrepôt d'arrêtés, d'ordonnances et de
+délibérations que personne ne lit. Le document administratif est la **preuve**, jamais le
+produit.
 
-## Principes
+> **Engagement de langue.** Un observatoire que seuls des spécialistes comprennent a
+> échoué, quelle que soit la qualité de ses données. Les documents de ce dépôt sont des
+> documents de travail et emploient un vocabulaire technique ; **le site, lui, doit être
+> compris par quelqu'un qui n'a jamais ouvert un budget communal.** Toute notion technique
+> qui sort d'ici doit être traduite avant d'être publiée.
+
+## La chaîne de travail
+
+```mermaid
+flowchart TD
+    S["<b>Sources publiques</b><br/>INSEE, DGFiP, ministères,<br/>Ville, Métropole"]
+    C["<b>Copie datée</b><br/>on garde une trace avant<br/>que la source ne l'efface"]
+    V["<b>Vérification</b><br/>d'où vient le chiffre,<br/>de quand, qui décide"]
+    D{"<b>Deux horloges</b>"}
+    R["<b>Décisions</b> — quelques semaines<br/>délibérations, budget voté,<br/>marchés, engagements"]
+    I["<b>Indicateurs</b> — une à trois années<br/>finances, éducation, sécurité,<br/>logement, environnement"]
+    H(["<b>Décision humaine</b><br/>rien n'est publié automatiquement"])
+    P["<b>Publication</b><br/>chaque chiffre affiche sa date,<br/>sa source et qui en est responsable"]
+    L["<b>Le site</b><br/>comprendre l'état de la ville<br/>sans être spécialiste"]
+
+    S --> C --> V --> D
+    D --> R --> H
+    D --> I --> H
+    H --> P --> L
+    P -. "chaque chiffre reste lié\nà sa copie d'origine" .-> C
+```
+
+**Pourquoi deux horloges.** Les décisions sont publiées en quelques jours ; leurs effets
+se mesurent des années plus tard. Les mélanger sur un même axe de temps donne des
+graphiques faux. Conséquence concrète : **aucune évaluation statistique du mandat en cours
+n'est possible avant mi-2028** — le détail est en [11](docs/11_LATENCE_ET_DEUX_HORLOGES.md).
+
+**Pourquoi la copie datée.** Environ 70 % des jeux de données ouverts locaux écrasent leur
+propre historique. Personne à Clermont-Ferrand ne conserve ce passé — ni la collectivité,
+ni la presse, ni l'opposition. Voir [14](docs/14_VOLATILITE_DES_SOURCES.md).
+
+## Les règles qui tiennent le projet
 
 1. **Une donnée sans date de référence et sans date de publication n'est pas une donnée.**
-2. **Un chiffre sans sphère de compétence est une imputation, pas une information.**
-3. **Aucune courbe ne traverse une rupture de série sans la signaler.**
-4. **L'absence de preuve n'est pas la preuve d'une absence** — les lacunes sont
-   enregistrées, pas comblées par inférence ([17](docs/17_REGISTRE_DES_LACUNES.md)).
-5. **Ce qui n'est pas archivé est perdu.** Les instantanés volatils sont capturés avant
-   d'être exploités.
-6. **Ce dépôt documente l'action publique. Il ne fait pas campagne, ne classe pas les
-   élus et ne prescrit pas de choix politique.**
-
-## Ce que ce dépôt n'est pas
-
-- Ce n'est pas une plateforme logicielle. L'implémentation vit dans
-  [`project-iagora`](https://github.com/ccoelhofize/project-iagora) — voir
-  [00_PERIMETRE.md](docs/00_PERIMETRE.md) pour la frontière exacte entre les deux dépôts.
-- Ce n'est pas un entrepôt de données. Aucune valeur acquise auprès d'un producteur
-  public n'est stockée ici.
-- Ce n'est pas une évaluation du mandat. Aucune donnée statistique du mandat 2026-2032
-  ne sera disponible avant **mi-2028** ; ce dépôt explique pourquoi et prépare le terrain.
+2. **Un chiffre sans indication de qui décide est une imputation, pas une information.**
+3. **Aucune courbe ne traverse une rupture méthodologique sans la signaler.**
+4. **L'absence de preuve n'est pas la preuve d'une absence.** Les manques sont
+   enregistrés, jamais comblés par déduction.
+5. **Ce qui n'est pas archivé est perdu.**
+6. **Cet observatoire documente l'action publique.** Il ne fait pas campagne, ne classe pas
+   les élus, ne prescrit pas de choix politique, et ne présente jamais une corrélation
+   comme une cause.
 
 ## Carte des documents
 
 | Document | Objet |
 |---|---|
-| [00_PERIMETRE](docs/00_PERIMETRE.md) | Périmètre territorial, temporel, et frontière avec `project-iagora` |
-| [10_INVENTAIRE_DES_SOURCES](docs/10_INVENTAIRE_DES_SOURCES.md) | 61 indicateurs vérifiés : producteur, granularité, profondeur, délai, format, licence |
-| [11_LATENCE_ET_DEUX_HORLOGES](docs/11_LATENCE_ET_DEUX_HORLOGES.md) | Délais de publication et fenêtre minimale d'évaluabilité |
-| [12_RUPTURES_DE_SERIE](docs/12_RUPTURES_DE_SERIE.md) | Registre des discontinuités méthodologiques datées |
-| [13_SPHERES_DE_COMPETENCE](docs/13_SPHERES_DE_COMPETENCE.md) | Vocabulaire des sphères et attribution par domaine |
-| [14_VOLATILITE_DES_SOURCES](docs/14_VOLATILITE_DES_SOURCES.md) | Classes de volatilité et perte irréversible |
-| [15_SOURCES_DES_DECISIONS_MUNICIPALES](docs/15_SOURCES_DES_DECISIONS_MUNICIPALES.md) | Accès aux délibérations : classes, latences, cadre juridique |
-| [16_TERRITOIRES_DE_COMPARAISON](docs/16_TERRITOIRES_DE_COMPARAISON.md) | Strate DGFiP et panel gelé de villes-centres |
-| [17_REGISTRE_DES_LACUNES](docs/17_REGISTRE_DES_LACUNES.md) | Ce qui manque, ce qui a été demandé, et en combien de temps on a répondu |
-| [99_INDEX](docs/99_INDEX.md) | Index de navigation et état de chaque document |
-| [upstream/](upstream/README.md) | Concepts candidats à une remontée vers `project-iagora` |
+| [00_PERIMETRE](docs/00_PERIMETRE.md) | Ce que le projet couvre et ce qu'il exclut |
+| [10_INVENTAIRE_DES_SOURCES](docs/10_INVENTAIRE_DES_SOURCES.md) | 61 indicateurs vérifiés : producteur, profondeur, délai, licence |
+| [11_LATENCE_ET_DEUX_HORLOGES](docs/11_LATENCE_ET_DEUX_HORLOGES.md) | Combien de temps sépare un fait de sa publication |
+| [12_RUPTURES_DE_SERIE](docs/12_RUPTURES_DE_SERIE.md) | Les dates où une comparaison devient fausse |
+| [13_SPHERES_DE_COMPETENCE](docs/13_SPHERES_DE_COMPETENCE.md) | Qui décide quoi : Ville, Métropole, Département, Région, État |
+| [14_VOLATILITE_DES_SOURCES](docs/14_VOLATILITE_DES_SOURCES.md) | Ce que l'on perd chaque jour sans copie datée |
+| [15_SOURCES_DES_DECISIONS_MUNICIPALES](docs/15_SOURCES_DES_DECISIONS_MUNICIPALES.md) | Accéder aux délibérations : délais et cadre juridique |
+| [16_TERRITOIRES_DE_COMPARAISON](docs/16_TERRITOIRES_DE_COMPARAISON.md) | Comparer Clermont à des villes semblables |
+| [17_REGISTRE_DES_LACUNES](docs/17_REGISTRE_DES_LACUNES.md) | Ce qui manque, ce qui a été demandé, et la réponse obtenue |
+| [18_CHANTIERS](docs/18_CHANTIERS.md) | Les six travaux de fond à mener |
+| [99_INDEX](docs/99_INDEX.md) | Index, décisions prises, questions ouvertes |
+| [AGENTS](AGENTS.md) | Contrat de travail entre les agents automatisés |
 | [data/sources.csv](data/sources.csv) | L'inventaire en format structuré |
+
+## Ce dépôt n'est pas
+
+- **un site web** — il contient la connaissance nécessaire pour en construire un ;
+- **un entrepôt de données** — aucune valeur acquise auprès d'un producteur public n'y est
+  stockée ;
+- **une évaluation du mandat** — c'est matériellement impossible avant mi-2028 ;
+- **une autorisation de collecte** — décrire une source ne veut pas dire aller la chercher.
+
+## Espace de travail public
+
+Ce dépôt est public dès le premier jour, volontairement : la valeur d'une ligne de base
+tient à ce qu'elle ait été publiée **avant** que quiconque ait intérêt à son contenu.
+
+En conséquence, on y trouve du travail en cours. **Un document en brouillon n'est pas une
+position de l'observatoire**, et un élément marqué « à vérifier » ne l'est vraiment pas.
+Les corrections sont bienvenues : ouvrez une issue.
 
 ## Licence
 
 Documentation originale : **CC BY 4.0** — voir [LICENSE.md](LICENSE.md).
-Les données publiques citées conservent les droits de leurs producteurs (le plus souvent
-Licence Ouverte 2.0 ou ODbL) ; ces droits sont indiqués source par source dans
-l'inventaire.
+Les données publiques citées conservent les droits de leurs producteurs, indiqués source
+par source dans l'inventaire.
 
 ## État actuel
 
-Tous les documents sont en **brouillon**. Le relevé a été effectué le 18 août 2026 par
-vérification directe des pages de chaque producteur. Les éléments marqués
-« non vérifié » le sont réellement et ne doivent pas entrer en production sans contrôle.
+Relevé initial effectué le 18 août 2026 par consultation directe des pages de chaque
+producteur. Aucune donnée n'a été collectée. Aucune copie datée n'est encore en place —
+c'est le premier chantier ([18](docs/18_CHANTIERS.md)).
 
-Trois vérifications bloquantes restent à faire avant toute décision d'architecture :
-
-1. la date maximale réelle du jeu de données des délibérations votées ;
-2. la présence d'une classification fonctionnelle dans les balances comptables ;
-3. l'énumération exhaustive du catalogue open data local (≈ 70 des 125 jeux recensés).
+Trois vérifications conditionnent la suite et sont ouvertes en issues : la date réelle du
+jeu de données des délibérations, la présence d'une ventilation par domaine dans les
+comptes de la commune, et l'énumération complète du catalogue open data local.
